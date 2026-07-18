@@ -1,0 +1,428 @@
+🚀 Complete Guide to Create Your Own AI Portfolio
+
+Overview
+
+This guide explains how to create your own premium animated portfolio by customizing my GitHub project using AI tools.
+
+You'll use:
+
+GitHub (https://github.com/mdyusuf0/Portfolio) clone the project.
+
+ChatGPT (generate cartoon avatar)
+
+Veo 3 (generate talking avatar video)
+
+Antigravity/Codex (customize the portfolio)
+
+Vercel (deploy)
+
+
+
+---
+
+STEP 1 — Clone the Repository
+
+Clone the GitHub repository.
+
+git clone YOUR_GITHUB_LINK
+
+or download the ZIP.
+
+Open the project inside VS Code.
+
+
+---
+
+STEP 2 — Create a Folder
+
+Create a folder called
+
+Portfolio Assets
+
+Store everything inside it.
+
+Required files:
+
+Portfolio Assets
+│
+├── Resume.pdf
+├── Hero Image.png
+├── Hero Talking Video.mp4
+├── Certificates.pdf (optional)
+├── Project Screenshots
+└── Any other assets
+
+
+---
+
+STEP 3 — Generate Your Cartoon Image
+
+Go to ChatGPT Image Generation.
+
+IMPORTANT
+
+Take a high-quality screenshot of my animated image from my website.
+
+Use it as the reference image.
+
+Also upload your own portrait.
+
+
+---
+
+Image Prompt
+
+Make the exact same cartoon image for my photo by seeing the reference image which I have uploaded.
+
+Preserve everything exactly:
+
+• Art style
+• Cartoon style
+• Laptop
+• Lighting
+• Background
+• Colors
+• Shadows
+• Composition
+• Camera angle
+• Sitting posture
+• Clothing style
+• Hair style
+• Line art
+
+Replace ONLY the face so it looks like me.
+
+Do not redesign anything.
+
+The final image should look like it belongs to the same artwork.
+
+Output:
+16:9
+Ultra HD
+No text
+No watermark
+
+
+---
+
+STEP 4 — Generate Talking Avatar
+
+Open Google Veo 3.
+
+Upload your generated cartoon image.
+
+Use this prompt.
+
+
+---
+
+Veo 3 Prompt
+
+Animate ONLY the provided reference image.
+
+Do NOT redesign, re-illustrate, restyle, or reinterpret the character in any way.
+
+The exact cartoon/sketch illustration style, line art, colors, shading, proportions, facial features, hairstyle, clothing, and overall visual appearance from the reference image must remain completely unchanged throughout the video.
+
+Preserve the original 2D cartoon artwork exactly as provided.
+
+Do not convert it into:
+
+• 3D
+• Anime
+• Pixar
+• Semi-realistic
+• Realistic
+• Any other art style
+
+Create a smooth high-quality animation where only natural movements are animated.
+
+Animate:
+
+• Eye blinking
+• Slight breathing
+• Small head movement
+• Natural lip movement
+• Friendly facial expressions
+
+He is speaking directly to the camera with confidence.
+
+Dialogue:
+
+"Hi, I'm Yusuf. I'm a Full Stack Developer and Computer Science student passionate about building scalable web applications, solving real-world problems, and continuously learning new technologies. Welcome to my portfolio."
+
+Speak naturally.
+
+Do not rush.
+
+Pause between sentences.
+
+Maintain accurate lip sync.
+
+Keep the laptop, background, lighting, colors, hairstyle, clothing and composition exactly the same.
+
+Do not add or remove objects.
+
+End in the same pose so the animation loops perfectly.
+
+Output:
+
+16:9
+
+No text
+
+No subtitles
+
+No logos
+
+No camera movement
+
+No zoom
+
+No scene change
+
+No style change
+
+Download the MP4.
+
+
+---
+
+STEP 5 — Put Everything Inside the Folder
+
+Your folder should now contain
+
+Resume.pdf
+
+Hero Image.png
+
+Hero Talking Video.mp4
+
+Certificates.pdf
+
+Project Screenshots
+
+
+---
+
+STEP 6 — Clone the Portfolio
+
+Open the project.
+
+Open Antigravity (or Codex).
+
+
+---
+
+Prompt 1 — Analyze the Project
+
+I want to customize this portfolio project for myself.
+
+Do NOT start coding.
+
+First analyze everything.
+
+Read the complete source code.
+
+Understand:
+
+- Folder structure
+- Components
+- Animations
+- Hero implementation
+- Video implementation
+- Play Reel button
+- Styling
+- Assets
+
+Now analyze:
+
+- My Resume
+- Hero Image
+- Hero MP4
+- Certificates
+- Project Screenshots
+
+Extract every detail from my resume.
+
+Compare the original portfolio with my information.
+
+Tell me exactly:
+
+• What files will change
+
+• Which animations will remain
+
+• Which assets will be replaced
+
+• What information is missing
+
+Then create a detailed implementation plan.
+
+Wait for my approval.
+
+Do not write code.
+
+
+---
+
+Prompt 2 — Start Building
+
+The implementation plan has been approved.
+
+Inside my folder I have already stored:
+
+• Resume.pdf
+
+• Hero Image.png
+
+• Hero Talking Video.mp4
+
+• Certificates.pdf
+
+• Project Screenshots
+
+Now modify the existing portfolio.
+
+Do NOT create a new project.
+
+Keep the original premium design.
+
+Keep the original animations.
+
+Keep the original Hero.
+
+Keep the Play Reel button.
+
+Keep the cinematic layout.
+
+Replace only the personal information.
+
+Use my resume.
+
+Use my talking MP4.
+
+Use my hero image.
+
+Create an exact copy of the portfolio for me.
+
+Include:
+
+• Hero
+
+• About
+
+• Skills
+
+• Projects
+
+• Experience
+
+• Education
+
+• Certificates
+
+• Contact
+
+• Footer
+
+Keep the project responsive.
+
+Fix every build error.
+
+Fix every console error.
+
+Verify every link.
+
+Verify the Hero video.
+
+Verify Play Reel.
+
+Verify Resume Download.
+
+Verify Contact Form.
+
+Do not stop until the project is production-ready.
+
+
+---
+
+STEP 7 — Run the Project
+
+npm install
+
+npm run dev
+
+If everything works
+
+npm run build
+
+There should be zero errors.
+
+
+---
+
+STEP 8 — Deploy
+
+Push to GitHub.
+
+Open Vercel.
+
+Import Repository.
+
+Settings
+
+Build Command
+
+npm run build
+
+Output Folder
+
+dist
+
+Deploy.
+
+
+---
+
+Final Checklist
+
+✅ Hero video works
+
+✅ Play Reel works
+
+✅ Resume downloads
+
+✅ Projects open
+
+✅ Certificates open
+
+✅ Contact form works
+
+✅ Mobile responsive
+
+✅ Desktop responsive
+
+✅ No console errors
+
+✅ No build errors
+
+
+---
+
+AI Tools Used
+
+ChatGPT → Cartoon image generation
+
+Google Veo 3 → Talking avatar video
+
+Antigravity / Codex → Portfolio customization
+
+VS Code → Development
+
+GitHub → Version control
+
+Vercel → Deployment
+
+
+This gives you a complete master document that you can trim down, reformat, or turn into a polished PDF later.

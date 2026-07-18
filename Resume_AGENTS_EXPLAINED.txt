@@ -1,0 +1,336 @@
+================================================================
+   WHAT EACH AGENT DOES
+   AI Hiring Pipeline Simulator
+================================================================
+
+When you paste a resume and job description and hit
+"Run Hiring Pipeline", 10 agents run in sequence.
+Here is what each one does in plain English.
+
+----------------------------------------------------------------
+
+AGENT 1 — RESUME PARSER
+----------------------------------------------------------------
+What it does:
+  Reads the raw resume text and pulls out structured data —
+  name, email, skills, work experience, education, projects,
+  and certifications. Handles different key formats the LLM
+  may return (e.g. "name" vs "full_name", "personal_info"
+  vs "personal_details").
+
+Example:
+  Input:  "John Smith | john@email.com | Python, AWS, Docker
+           Software Engineer at TechCorp (2021–2024)
+           Built microservices reducing latency by 40%"
+
+  Output: {
+            name: "John Smith",
+            email: "john@email.com",
+            skills: ["Python", "AWS", "Docker"],
+            experience: [{ company: "TechCorp",
+                           title: "Software Engineer",
+                           description: "Built microservices..." }]
+          }
+
+  Fallback: If parsing fails, returns an empty Resume object
+            so the pipeline continues without crashing.
+
+----------------------------------------------------------------
+
+AGENT 2 — JD ANALYZER
+----------------------------------------------------------------
+What it does:
+  Reads the job description and extracts what the employer
+  actually wants — required skills, preferred skills,
+  responsibilities, years of experience, and ATS keywords.
+  Handles key variations like "job_title" vs "title" and
+  "ats_keywords" vs "keywords".
+
+Example:
+  Input:  "We are looking for a Senior Backend Engineer with
+           5+ years in Python, experience with AWS and Kubernetes..."
+
+  Output: {
+            title: "Senior Backend Engineer",
+            required_skills: ["Python", "AWS", "Kubernetes"],
+            years_of_experience: 5,
+            keywords: ["backend", "microservices", "CI/CD"]
+          }
+
+  Fallback: Returns a basic JobDescription with the raw text
+            if the LLM response cannot be parsed.
+
+----------------------------------------------------------------
+
+AGENT 3 — ATS EVALUATOR
+----------------------------------------------------------------
+What it does:
+  Compares the resume against the job description like an
+  Applicant Tracking System (ATS) would. Returns scores on
+  a 0–100 scale and lists what is missing.
+
+  Scores returned:
+    - Overall ATS Score        (0–100)
+    - Keyword Match Score      (0–100)
+    - Formatting Score         (0–100)
+    - Completeness Score       (0–100)
+
+Example:
+  Resume has Python, AWS — but is missing Kubernetes, Docker.
+
+  Output: {
+            overall_score: 68,
+            keyword_match_score: 55,
+            formatting_score: 80,
+            completeness_score: 72,
+            missing_keywords: ["Kubernetes", "Docker", "CI/CD"],
+            weak_sections: ["Projects", "Certifications"],
+            recommendations: [
+              "Add Kubernetes to skills section",
+              "Include CI/CD pipeline experience",
+              "Add a professional summary"
+            ]
+          }
+
+  Note: All scores are enforced as integers 0–100.
+        If the LLM returns 0–10 scale, scores are auto-converted.
+
+----------------------------------------------------------------
+
+AGENT 4 — RESUME OPTIMIZER
+----------------------------------------------------------------
+What it does:
+  Takes the work experience bullets and rewrites them to be
+  stronger — adding numbers, better action verbs, and missing
+  keywords. Also provides a list of improvement suggestions.
+
+  Always returns at least 4–6 suggestions even if the LLM
+  response is incomplete (uses smart defaults as fallback).
+
+Example:
+  Before: "Worked on backend services"
+  After:  "Engineered 3 Python microservices handling 50K
+           daily requests, reducing response time by 35%"
+
+  Suggestions always include tips like:
+    - "Start each bullet with a strong action verb"
+    - "Add quantified metrics (e.g. reduced latency by 40%)"
+    - "Include technologies used in each role"
+    - "Tailor keywords to match the job description"
+
+  Fallback: Returns 6 universal resume improvement tips
+            if the LLM returns no usable suggestions.
+
+----------------------------------------------------------------
+
+AGENT 5 — HR RECRUITER
+----------------------------------------------------------------
+What it does:
+  Reviews the overall candidate profile from an HR lens —
+  career consistency, communication signals, presentation,
+  culture fit indicators, and any red flags.
+
+Example:
+  Output: {
+            overall_profile_strength: 8.5,
+            career_consistency: 8,
+            pros: [
+              "Strong technical skills in AI and ML",
+              "Relevant internship experience"
+            ],
+            cons: [
+              "Limited work experience",
+              "May require training on company tools"
+            ],
+            questions_to_ask: [
+              "Tell me about the gap in your employment?",
+              "How do you stay current with AI research?"
+            ]
+          }
+
+  Fallback: Returns {"evaluation": "HR evaluation unavailable"}
+            so the pipeline continues.
+
+----------------------------------------------------------------
+
+AGENT 6 — TECHNICAL INTERVIEWER
+----------------------------------------------------------------
+What it does:
+  Evaluates the depth of technical skills — how well the
+  candidate's projects and experience match what the job
+  actually requires. Generates likely technical interview
+  questions with scores per category.
+
+Example:
+  Output: {
+            technical_skills_match: { score: 8, comment: "..." },
+            tools_and_technologies: { score: 9, comment: "..." },
+            cloud_experience: { score: 4, comment: "No cloud mentioned" },
+            recommendations: [
+              "Ask about Kubernetes experience",
+              "Give a Python coding challenge"
+            ]
+          }
+
+  Fallback: Returns {"evaluation": "Technical evaluation unavailable"}
+            so the pipeline continues.
+
+----------------------------------------------------------------
+
+AGENT 7 — HIRING MANAGER
+----------------------------------------------------------------
+What it does:
+  Looks at business impact — did the candidate's past work
+  actually move the needle? Assesses leadership, ownership,
+  problem-solving ability, and growth potential. Makes a
+  preliminary hire/no-hire recommendation.
+
+Example:
+  Output: {
+            hire_recommendation: true,
+            business_impact: 8,
+            leadership_and_ownership: 7,
+            problem_solving_skills: 9,
+            domain_relevance: 9,
+            growth_potential: 8,
+            reason: "Strong ownership track record,
+                     domain directly relevant to role"
+          }
+
+  Fallback: Returns {"evaluation": "Hiring manager evaluation unavailable"}
+            so the pipeline continues.
+
+----------------------------------------------------------------
+
+AGENT 8 — RECRUITER DECISION
+----------------------------------------------------------------
+What it does:
+  Makes a final shortlisting call — should this candidate
+  be invited to interview? Considers salary fit, experience
+  level, and market competitiveness.
+
+Example:
+  Output: {
+            shortlist_decision: true,
+            confidence_percentage: 92,
+            evaluation_details: {
+              experience_fit: "excellent",
+              market_competitiveness: "high",
+              interview_probability: "very_high"
+            },
+            reasons: [
+              "Strong technical skills in AI and ML",
+              "Good fit for job responsibilities"
+            ]
+          }
+
+  Fallback: Returns {"shortlist": false, "confidence": 0.5}
+            so the pipeline continues.
+
+----------------------------------------------------------------
+
+AGENT 9 — HIRING COMMITTEE
+----------------------------------------------------------------
+What it does:
+  Collects outputs from ALL previous agents and makes the
+  final weighted hiring decision.
+
+  Weighted voting:
+    ATS Score        → 25%
+    Technical Review → 25%
+    Hiring Manager   → 25%
+    HR Review        → 15%
+    Recruiter        → 10%
+
+  If the LLM returns empty reasons or concerns, the pipeline
+  automatically fills them in from HR and Recruiter outputs
+  as a fallback.
+
+Example:
+  Output: {
+            final_decision: "Hire",
+            confidence_score: 0.81,
+            interview_probability: 0.85,
+            reasons: [
+              "Strong technical match for the role",
+              "Proven business impact in past roles",
+              "High market competitiveness"
+            ],
+            minor_concerns: ["Kubernetes experience is limited"],
+            major_concerns: []
+          }
+
+  Fallback: If committee returns empty lists, reasons and
+            concerns are automatically pulled from HR and
+            Recruiter agent outputs.
+
+----------------------------------------------------------------
+
+AGENT 10 — INTERVIEW COACH
+----------------------------------------------------------------
+What it does:
+  Generates a personalized interview preparation kit —
+  behavioral questions, technical questions, system design
+  questions, and a step-by-step preparation plan as a flat
+  readable list.
+
+  Key output fields:
+    - hr_questions
+    - technical_questions
+    - system_design_questions
+    - preparation_plan  (flat list of strings)
+    - learning_resources
+
+Example:
+  Output: {
+            hr_questions: [
+              "Tell me about a time you handled a production outage",
+              "How do you prioritize competing deadlines?"
+            ],
+            technical_questions: [
+              "Design a distributed job queue in Python",
+              "Explain your experience with container orchestration"
+            ],
+            system_design_questions: [
+              "How would you architect a RAG pipeline for a chatbot?"
+            ],
+            preparation_plan: [
+              "Week 1: Review Kubernetes basics and container orchestration",
+              "Week 2: Practice system design (load balancers, caching)",
+              "Week 3: Mock interviews and behavioral story prep"
+            ]
+          }
+
+  Fallback: If preparation_plan is missing, tries
+            "learning_resources" or "recommendations" keys.
+
+================================================================
+
+FINAL REPORT (what you see on screen)
+----------------------------------------------------------------
+After all 10 agents run, a single report is generated with:
+
+  ┌─ Final Decision badge     → Hire / Consider / No Hire
+  ├─ Confidence %             → Committee confidence score
+  ├─ Interview Probability %  → Likelihood of interview call
+  │
+  ├─ Score Cards:
+  │    ATS Score              → Overall keyword/format match
+  │    Skill Match %          → Resume skills vs JD requirements
+  │    Keyword Match Score    → Keyword coverage (0–100)
+  │    Completeness Score     → Resume section completeness
+  │
+  ├─ Reasons                  → Why the candidate is a good fit
+  ├─ Minor Concerns           → Small gaps or areas to improve
+  ├─ Major Concerns           → Blockers or red flags
+  │
+  ├─ Missing Keywords         → Keywords in JD but not in resume
+  ├─ ATS Recommendations      → How to improve ATS score
+  ├─ Interview Prep Plan      → Step-by-step study roadmap
+  │
+  └─ Agent Detail Sections (collapsible):
+       HR Review, Technical Review, Hiring Manager Review,
+       Recruiter Decision, Committee Decision,
+       Interview Coach Materials, Resume Optimization Tips
+
+================================================================
